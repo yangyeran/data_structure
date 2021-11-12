@@ -1,11 +1,19 @@
 #include<stdio.h>
 #include<stdbool.h>
+
 typedef struct TreeNode
 {
    int val;
    struct TreeNode *left;
    struct TreeNode *right;
 }TreeNode;
+
+  struct TreeNode {
+      int val;
+      struct TreeNode *left;
+      struct TreeNode *right;
+  };
+
 
 int maxDepth(struct TreeNode* root) {
     if (root == NULL)
