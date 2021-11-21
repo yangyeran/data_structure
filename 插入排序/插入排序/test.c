@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+void ShellSort1(int* a, int n);
 //≤Â»Î≈≈–Ú
 void InsertSort(int* a,int n)
 {
