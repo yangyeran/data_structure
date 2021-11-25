@@ -62,7 +62,7 @@ int GetMidIndex(int* a, int left, int right)
 	}
 }
 //单趟
-int Partion(int* a, int left, int right)
+int Partion1(int* a, int left, int right)
 {
 	int mid = GetMidIndex(a, left, right);
 	Swap(&a[left], &a[mid]);
@@ -86,6 +86,35 @@ int Partion(int* a, int left, int right)
 	Swap(&a[left], &a[keyi]);
 	return left;
 }
+int Partion2(int* a, int left, int right)//挖坑法
+{
+	int mid = GetMidIndex(a, left, right);
+	Swap(&a[left], &a[mid]);
+	int key = a[left];
+	//pit是坑
+	int pit = left;
+	while (left < right)
+	{
+		//挖坑法就是以左边为key,挖一个坑，然后从右边找比坑位的值小的值，把值放进坑里，形成新的坑
+		//然后就开从左边找比坑位大的值
+		//最后相等的时候把存的值给相等的地方
+		while(left < right && a[right] >= key)
+		{
+			--right;
+		}
+		a[pit] = a[right];
+		pit = right;
+		while (left < right && a[left] <= key)
+		{
+			++left;
+		}
+		a[pit] = a[left];
+		pit = left;
+	}
+	//因为都一样，所以用哪个都行
+	a[pit] = key;
+	return pit;
+}
 //hoare版本
 void QuickSort(int* a, int left,int right)
 {
@@ -95,7 +124,7 @@ void QuickSort(int* a, int left,int right)
 	if (left >= right)
 		return;
 	//根据递归实现
-	int keyi = Partion(a, left,right);
+	int keyi = Partion2(a, left,right);
 	//[left,keyi-1]  keyi [keyi+1,right]
 	QuickSort(a, left, keyi - 1);
 	QuickSort(a, keyi+1,right);
